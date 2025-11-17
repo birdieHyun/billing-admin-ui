@@ -1,8 +1,12 @@
+import { TrendingUp } from 'lucide-react'
+import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
+
 import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
@@ -16,7 +20,6 @@ import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
 import { Analytics } from './components/analytics'
 import { Overview } from './components/overview'
-import { RecentSales } from './components/recent-sales'
 
 export function Dashboard() {
   return (
@@ -62,7 +65,7 @@ export function Dashboard() {
               <Card>
                 <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
                   <CardTitle className='text-sm font-medium'>
-                    Total Revenue
+                    해당 월 매출
                   </CardTitle>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -87,7 +90,7 @@ export function Dashboard() {
               <Card>
                 <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
                   <CardTitle className='text-sm font-medium'>
-                    Subscriptions
+                    활성 구독 수
                   </CardTitle>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -113,7 +116,9 @@ export function Dashboard() {
               </Card>
               <Card>
                 <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-                  <CardTitle className='text-sm font-medium'>Sales</CardTitle>
+                  <CardTitle className='text-sm font-medium'>
+                    취소 수
+                  </CardTitle>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 24 24'
@@ -138,7 +143,7 @@ export function Dashboard() {
               <Card>
                 <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
                   <CardTitle className='text-sm font-medium'>
-                    Active Now
+                    신규 구독
                   </CardTitle>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -170,16 +175,39 @@ export function Dashboard() {
                   <Overview />
                 </CardContent>
               </Card>
-              <Card className='col-span-1 lg:col-span-3'>
-                <CardHeader>
-                  <CardTitle>Recent Sales</CardTitle>
-                  <CardDescription>
-                    You made 265 sales this month.
-                  </CardDescription>
+              <Card className='col-span-1 lg:col-span-3 flex flex-col'>
+                <CardHeader className='items-center pb-0'>
+                  <CardTitle>구독자 비율</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <RecentSales />
+                <CardContent className='flex-1 pb-0'>
+                  <ResponsiveContainer width='100%' height={250}>
+                    <PieChart>
+                      <Tooltip />
+                      <Pie
+                        data={[
+                          { name: 'free trial', value: 275 },
+                          { name: 'reality capture', value: 200 },
+                          { name: 'survey', value: 187 },
+                          { name: 'collab', value: 173 },
+                          { name: 'custom', value: 90 },
+                        ]}
+                        dataKey='value'
+                        nameKey='name'
+                        stroke='0'
+                        cx='50%'
+                        cy='50%'
+                      >
+                        <Cell fill='#9ca3af' />
+                        <Cell fill='#6b7280' />
+                        <Cell fill='#4b5563' />
+                        <Cell fill='#374151' />
+                        <Cell fill='#1f2937' />
+                      </Pie>
+                    </PieChart>
+                  </ResponsiveContainer>
                 </CardContent>
+                <CardFooter className='flex-col gap-2 text-sm'>
+                </CardFooter>
               </Card>
             </div>
           </TabsContent>
